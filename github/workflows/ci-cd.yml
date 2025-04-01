@@ -1,0 +1,37 @@
+name: CI/CD
+
+on: 
+  push:
+    branches: [master, main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Installer NODEJS
+        uses: actions/steup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Installer les dépendances
+        uses: npm install
+
+      - name: lancer les tests
+        uses: npm test
+
+      - name: Déploiement via SSH sur VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/app-nodejs || mkdir ~/app-nodejs && cd ~/app-nodejs
+            git clone https://github.com/${{ github.repository }} . || git pull
+            npm install
+            pm2 delete app-nodejs || true
+            pm2 start index.js --name app-nodejs
+            pm2 save
+
