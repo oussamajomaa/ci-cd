@@ -15,10 +15,10 @@ jobs:
           node-version: "18"
 
       - name: Installer les dépendances
-        uses: npm install
+        run: npm install
 
       - name: lancer les tests
-        uses: npm test
+        run: npm test
 
       - name: Déploiement via SSH sur VPS
         uses: appleboy/ssh-action@master
