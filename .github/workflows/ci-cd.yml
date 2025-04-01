@@ -28,6 +28,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            echo "🔍 Début du déploiement"
+            whoami
+            hostname
             cd ~/app-nodejs || mkdir ~/app-nodejs && cd ~/app-nodejs
             git clone https://github.com/${{ github.repository }} . || git pull
             npm install
