@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest # run on ubuntu
 
     steps:
+      - name: Cloner le projet
+        uses: actions/checkout@v3  # ← cette ligne est essentielle
+        
       - name: Installer NODEJS
         uses: actions/setup-node@v3
         with:
