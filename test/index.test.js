@@ -1,5 +1,6 @@
 const request = require('supertest')
-const {expect} = require('chai')
+import { expect } from 'chai';
+
 
 const app = require('../index')
 
