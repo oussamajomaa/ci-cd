@@ -2,7 +2,7 @@ name: CI/CD
 
 on: 
   push:
-    branches: [master, main]
+    branches: [master, main] # Déclenche le déploiement à chaque push sur la branche main
 
 jobs:
   build-and-deploy:
