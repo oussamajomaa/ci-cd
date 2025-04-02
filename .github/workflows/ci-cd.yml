@@ -31,31 +31,19 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            set -e  # arrête si une commande échoue
-
-            echo "📁 Aller dans ~/app-nodejs"
+            
             cd ~/app-nodejs || mkdir ~/app-nodejs && cd ~/app-nodejs
 
-            echo "📥 Cloner ou pull du code"
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/${{ github.repository }} . 
-            else
-              git pull
-            fi
+            git clone https://github.com/${{ github.repository }} . || git pull
 
-            echo "📦 Installer les dépendances"
             npm install
 
-            echo "🛑 Arrêt PM2 (si actif)"
             pm2 delete app-nodejs || true
 
-            echo "🚀 Lancement avec PM2"
             pm2 start index.js --name app-nodejs
 
-            echo "💾 Sauvegarde de l'état PM2"
             pm2 save
 
-            echo "📋 Liste des apps PM2"
             pm2 list
 
             echo "✅ FIN DU DÉPLOIEMENT"

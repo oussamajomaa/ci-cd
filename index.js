@@ -6,6 +6,7 @@ app.get('/', (req,res)=> {
     res.json('Helo from CI/CD')
 })
 
+const PORT = 4444
 if (require.main === module) {
     console.log(require.main === module);
     
