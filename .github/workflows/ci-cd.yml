@@ -31,14 +31,24 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ~/app-nodejs
+            set -e
+            echo "📁 Dossier projet"
+            cd ~/app-nodejs || mkdir ~/app-nodejs && cd ~/app-nodejs
+
+            echo "🔁 Clonage ou pull"
             git clone https://github.com/${{ github.repository }} . || git pull
+
+            echo "📦 Installation des dépendances"
             npm install
 
-            # Redémarre proprement avec PM2 (et évite les blocages)
+            echo "🛑 Arrêt ancien PM2"
             pm2 delete app-nodejs || true
+
+            echo "🚀 Lancement app avec PM2"
             pm2 start index.js --name app-nodejs
+
+            echo "💾 Sauvegarde PM2"
             pm2 save
 
-            echo "✅ Déploiement terminé"
+            echo "✅ FIN DU DÉPLOIEMENT"
 
