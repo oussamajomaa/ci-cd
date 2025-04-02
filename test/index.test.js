@@ -1,9 +1,8 @@
-import request from 'supertest';
-import { expect } from 'chai';
+const request = require('supertest')
+const {expect} = require('chai')
 
+const app = require('../index')
 
-// const app = require('../index')
-import app from '../index.js';
 describe('La route de la racine',()=>{
     it('doit retourner "helo from CI/CD"',(done)=> {
         request(app).get('/')
