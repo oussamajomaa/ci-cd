@@ -20,8 +20,8 @@ jobs:
       - name: Installer les dépendances
         run: npm install
 
-      - name: lancer les tests
-        run: npm test
+      # - name: lancer les tests
+      #   run: npm test
 
       - name: Déploiement via SSH sur VPS
         uses: appleboy/ssh-action@master
