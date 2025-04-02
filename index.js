@@ -8,9 +8,8 @@ app.get('/', (req,res)=> {
 })
 
 
-// const PORT = process.env.PORT || 3009;
-if (require.main === module) {
-    const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+if (process.argv[1] === new URL(import.meta.url).pathname) {
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
